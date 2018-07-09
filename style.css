@@ -1,0 +1,109 @@
+/* @import url(reset.css); */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300); /* Open Sans [normal:400, lite:300] */
+/* @import url(http://fonts.googleapis.com/css?family=Roboto:400,300); /* Roboto [normal:400, lite:300] */
+/* @import url(http://fonts.googleapis.com/css?family=Lobster); /* Lobster [normal:400] */
+
+/* Serif Fonts */
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,700); /* Roboto Slab [normal:400, bold:700] */
+
+:root {
+  --color-primary: #4CAF50;
+  --color-primary-font: #fff;
+  --color-gray: #ccc;
+  --color-light-gray: #eee;
+  --color-dark-gray: #aaa;
+  --color-black: #333;
+  --color-black-alpha: #00000088;
+}
+
+body {
+  background: var(--color-light-gray);
+	color: #333;
+	font-family: 'Open Sans', Arial;
+}
+
+noscript {
+	width: 500px;
+	padding: 20px;
+	margin: 30px auto;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	display: block;
+	text-align: center;
+	background: #eee;
+	font-size: 1em;
+}
+
+th { font-weight: bold; }
+
+.wrapper {
+  padding: 20px 30px;
+}
+
+header {
+  background: var(--color-primary);
+  color: var(--color-primary-font);
+}
+
+#content {
+  min-height: calc(100vh - 60px);
+  position: relative;
+}
+
+#dropzone {
+  height: 100%;
+  width: 100%;
+  outline: 2px dashed var(--color-gray);
+  outline-offset: -10px;
+  position: absolute;
+  z-index: 10;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  color: var(--color-dark-gray);
+  font-weight: bold;
+  pointer-events: none;
+}
+#dropzone.hover {
+  display: grid !important;
+  outline-color: var(--color-primary);
+  background: var(--color-black-alpha);
+  color: var(--color-primary);
+}
+
+#content .title {
+  color: var(--color-primary);
+}
+
+#panel-container .panel {
+  padding: 10px;
+  margin: 6px 3px 0px;
+  border-radius: 3px;
+  background: #fff;
+}
+
+#panel-container > [class^="col-"]:first-child > .panel {
+  margin-left: 0px;
+}
+
+#panel-container > [class^="col-"]:last-child > .panel {
+  margin-rigtt: 0px;
+}
+
+#result-copy {
+  
+}
+
+::selection {
+  background: var(--color-primary);
+  color: var(--color-primary-font);
+}
+::-moz-selection {
+  background: var(--color-primary);
+  color: var(--color-primary-font);
+}
+
+footer {
+  background: var(--color-black);
+  color: var(--color-light-gray);
+}
