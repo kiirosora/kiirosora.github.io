@@ -14,6 +14,9 @@ $(function() {
   settings.roundMinutes = 15;
   var tickets = {};
   
+  
+  /* Jquery Events */
+  
   $content.on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -36,7 +39,10 @@ $(function() {
     window.getSelection().addRange(range);
     document.execCommand("copy");
   });
-
+  
+  
+  
+  /* Core Functions */
   
   function getFiles(e) {
     if (isAdvancedUpload) {
@@ -64,7 +70,7 @@ $(function() {
         
         if (++ctr < droppedFiles.length) reader.readAsText(droppedFiles[ctr]);
         else {
-          $resultsTime.html(getTotalHours());
+          $resultsTime.html(getTotalHours() + ' hour(s)');
           $resultsNumber.html(getTotalTickets());
           createDomResultCopy();
         }
@@ -148,6 +154,7 @@ $(function() {
       }
     }
   }
+
 });
 
 /* Class - TicketLog */
@@ -181,6 +188,7 @@ class Ticket {
     return this.minutes.reduce((a, b) => a + b, 0);
   }
 }
+
 
 /* Helper Functions */
 var isAdvancedUpload = function() {

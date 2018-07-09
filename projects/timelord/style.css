@@ -20,6 +20,7 @@ body {
   background: var(--color-light-gray);
 	color: #333;
 	font-family: 'Open Sans', Arial;
+  font-size: 0.9rem;
 }
 
 noscript {
@@ -32,6 +33,15 @@ noscript {
 	text-align: center;
 	background: #eee;
 	font-size: 1em;
+}
+
+::selection {
+  background: var(--color-primary);
+  color: var(--color-primary-font);
+}
+::-moz-selection {
+  background: var(--color-primary);
+  color: var(--color-primary-font);
 }
 
 th { font-weight: bold; }
@@ -94,16 +104,7 @@ header {
   
 }
 
-::selection {
-  background: var(--color-primary);
-  color: var(--color-primary-font);
-}
-::-moz-selection {
-  background: var(--color-primary);
-  color: var(--color-primary-font);
-}
-
-footer {
+#footer {
   background: var(--color-black);
   color: var(--color-light-gray);
 }
