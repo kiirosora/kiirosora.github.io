@@ -17,6 +17,8 @@ $(function() {
   
   /* Jquery Events */
   
+  $resultsClipboard.tooltip('disable');
+  
   $content.on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -38,6 +40,11 @@ $(function() {
     window.getSelection().removeAllRanges();
     window.getSelection().addRange(range);
     document.execCommand("copy");
+    
+    $resultsClipboard.tooltip('enable').tooltip('show');
+    setTimeout(function() {
+      $resultsClipboard.tooltip('hide').tooltip('disable');
+    }, 3000);
   });
   
   

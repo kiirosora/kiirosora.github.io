@@ -55,6 +55,10 @@ header {
   color: var(--color-primary-font);
 }
 
+#title {
+  font-size: 1rem;
+}
+
 #content {
   min-height: calc(100vh - 60px);
   position: relative;
