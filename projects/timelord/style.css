@@ -77,12 +77,18 @@ header {
   color: var(--color-dark-gray);
   font-weight: bold;
   pointer-events: none;
+  transition: all 0.3s;
 }
 #dropzone.hover {
   display: grid !important;
   outline-color: var(--color-primary);
   background: var(--color-black-alpha);
   color: var(--color-primary);
+}
+#dropzone.hover-fixed {
+  position: fixed;
+  top: 0px;
+  left: 0px;
 }
 
 #content .title {

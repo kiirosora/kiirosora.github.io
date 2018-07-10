@@ -17,7 +17,10 @@ $(function() {
   
   /* Jquery Events */
   
-  $resultsClipboard.tooltip('disable');
+  $resultsClipboard.tooltip({
+    animation: true,
+    placement: 'top'
+  }).tooltip('disable');
   
   $content.on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
     e.preventDefault();
@@ -25,9 +28,11 @@ $(function() {
   })
   .on('dragover dragenter', function() {
     $dropzone.addClass('hover');
+    if ($panelContainer.is(':visible')) $dropzone.addClass('hover-fixed');
   })
   .on('dragend dragleave drop', function() {
-    $dropzone.removeClass('hover');
+    $dropzone.removeClass('hover')
+    if ($panelContainer.is(':visible')) $dropzone.removeClass('hover-fixed');
   })
   .on('drop', getFiles);
   
@@ -44,7 +49,7 @@ $(function() {
     $resultsClipboard.tooltip('enable').tooltip('show');
     setTimeout(function() {
       $resultsClipboard.tooltip('hide').tooltip('disable');
-    }, 3000);
+    }, 1500);
   });
   
   
@@ -98,9 +103,6 @@ $(function() {
   function convertToHours(minutes) {
     var hours = minutes / 60;
     hours = Math.ceil(hours / (settings.roundMinutes / 60)) * (settings.roundMinutes / 60);
-    console.log('bb - ' + (settings.roundMinutes / 60));
-    console.log('cc - ' + (hours / (settings.roundMinutes / 60)));
-    console.log('dd - ' + (Math.ceil(hours / (settings.roundMinutes / 60))));
     
     return hours;
   }
@@ -156,7 +158,6 @@ $(function() {
       for (id in tickets) {
         var ticket = tickets[id];
         
-        console.log('aa - ' + ticket.getTotalMinutes());
         $resultsCopy.append(ticket.id + " - " + convertToHours(ticket.getTotalMinutes()) + "<br>");
       }
     }
