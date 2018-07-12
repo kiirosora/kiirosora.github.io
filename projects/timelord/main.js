@@ -28,11 +28,10 @@ $(function() {
   })
   .on('dragover dragenter', function() {
     $dropzone.addClass('hover');
-    if ($panelContainer.is(':visible')) $dropzone.addClass('hover-fixed');
   })
   .on('dragend dragleave drop', function() {
     $dropzone.removeClass('hover')
-    if ($panelContainer.is(':visible')) $dropzone.removeClass('hover-fixed');
+    // if ($panelContainer.is(':visible')) $dropzone.removeClass('hover-fixed');
   })
   .on('drop', getFiles);
   
@@ -92,6 +91,8 @@ $(function() {
         tickets = {};
         
         reader.readAsText(droppedFiles[0]);
+
+        if (!$panelContainer.is(':visible')) $dropzone.addClass('hover-fixed');
         
         $rawDataContainerTbody.empty();
         $dropzone.fadeOut();

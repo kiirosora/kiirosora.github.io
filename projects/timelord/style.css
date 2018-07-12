@@ -114,7 +114,22 @@ header {
   
 }
 
+#result-clipboard {
+  background: var(--color-primary);
+  color: var(--color-primary-font);
+}
+
 #footer {
   background: var(--color-black);
   color: var(--color-light-gray);
+}
+
+#ys-yellow {
+  color: #ffdd00;
+}
+#ys-sky {
+  color: #fff;
+  font-style: italic;
+  text-shadow: 0 0 3px #fff;
+  text-transform: uppercase;
 }
