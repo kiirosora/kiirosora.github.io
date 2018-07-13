@@ -169,13 +169,15 @@ $(function() {
 /* Class - TicketLog */
 class TicketLog {
   constructor(line) {
-    this.lineString = line.substr(1, line.length - 1);
+    this.lineString = line.substr(1, line.length - 2);
     this.lineArray = this.lineString.split("|,,|");
     this.id = 1 * this.lineArray[2];
     this.date = this.lineArray[0];
     this.subject = this.lineArray[3];
     this.minutes = 1 * this.lineArray[4];
-    this.rawHours = 1 * this.lineArray[5];
+    console.log(this.lineArray[4]);
+    //if (this.lineArray[5] !== 'undefined')
+      //this.rawHours = 1 * this.lineArray[5];
   }
 }
 
