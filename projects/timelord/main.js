@@ -175,9 +175,6 @@ class TicketLog {
     this.date = this.lineArray[0];
     this.subject = this.lineArray[3];
     this.minutes = 1 * this.lineArray[4];
-    console.log(this.lineArray[4]);
-    //if (this.lineArray[5] !== 'undefined')
-      //this.rawHours = 1 * this.lineArray[5];
   }
 }
 
