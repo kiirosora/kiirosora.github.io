@@ -25,11 +25,50 @@ Author: Juan Carlo Mendoza
 
 <body>
   <header class="container-fluid">
+
     <div class="wrapper row">
       <div class="col-md p-0">
-        <span id="title">Time<b>Lord</b> </span><span class="fa fa-cog"></span>
+        <span id="title">Time<b>Lord</b>
+      </div>
+      <div class="col-md p-0 text-right">
+        <button id="settings-button" type="button" class="btn btn-outline-light btn-sm">
+          </span><span class="fa fa-cog"></span> Settings
+        </button>
       </div>
     </div>
+
+    <div id="settings" class="wrapper row">
+      <div class="col-md p-0">
+        <h4 class="h4 title">Settings</h4>
+        <form id="settings-form">
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-auto col-form-label">Minute Rounding:</label>
+            
+            <div class="col-sm-4 input-group input-group-sm">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Round</span>
+              </div>
+              <select class="custom-select">
+                <option value="up" selected>Up</option>
+                <option value="down">Down</option>
+              </select>
+              <div class="input-group-prepend input-group-append">
+                <span class="input-group-text">to the nearest</span>
+              </div>
+              <input id="settings-roundminutes" type="text" class="form-control" value="5">
+              <div class="input-group-prepend input-group-append">
+                <span class="input-group-text">minute(s)</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group row justify-content-md-center">
+            <button type="submit" class="btn btn-primary">Apply</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
   </header>
   
   <div id="content">
@@ -50,7 +89,7 @@ Author: Juan Carlo Mendoza
                 <tr>
                   <th>Date</th>
                   <th>Ticket ID</th>
-                  <th>Minutes</th>
+                  <th>Raw Minutes</th>
                 </tr>
               </thead>
               <tbody>
@@ -94,7 +133,7 @@ Author: Juan Carlo Mendoza
         &nbsp;
       </div>
       <div class="col-md-4 p-0 text-right">
-        <span id="ys-yellow">Yellow</span><span id="ys-sky">SKY</span>
+        Created by: Cajo | <span id="ys-yellow">Yellow</span><span id="ys-sky">SKY</span>
       </div>
     </div>
   </footer>

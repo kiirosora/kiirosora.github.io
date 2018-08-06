@@ -8,18 +8,22 @@
 
 :root {
   --color-primary: #4CAF50;
+  --color-primary-alpha: #4CAF5088;
+  --color-primary-light: #55C359;
   --color-primary-font: #fff;
   --color-gray: #ccc;
-  --color-light-gray: #eee;
-  --color-dark-gray: #aaa;
+  --color-light-gray: #ddd;
+  --color-lighter-gray: #eee;
+  --color-dark-gray: #bbb;
+  --color-darker-gray: #aaa;
   --color-black: #333;
   --color-black-alpha: #00000088;
 }
 
 body {
-  background: var(--color-light-gray);
-	color: #333;
-	font-family: 'Open Sans', Arial;
+  background: var(--color-lighter-gray);
+  color: #333;
+  font-family: 'Open Sans', Arial;
   font-size: 0.9rem;
 }
 
@@ -55,8 +59,15 @@ header {
   color: var(--color-primary-font);
 }
 
+
+
 #title {
   font-size: 1rem;
+}
+
+#settings {
+  background: var(--color-light-gray);
+  color: var(--color-black);
 }
 
 #content {
@@ -74,7 +85,7 @@ header {
   display: grid;
   justify-content: center;
   align-content: center;
-  color: var(--color-dark-gray);
+  color: var(--color-darker-gray);
   font-weight: bold;
   pointer-events: none;
   transition: all 0.3s;
@@ -97,7 +108,7 @@ header {
 
 #panel-container .panel {
   padding: 10px;
-  margin: 6px 3px 0px;
+  margin: 6px 0px 0px;
   border-radius: 3px;
   background: #fff;
 }
@@ -121,7 +132,7 @@ header {
 
 #footer {
   background: var(--color-black);
-  color: var(--color-light-gray);
+  color: var(--color-lighter-gray);
 }
 
 #ys-yellow {
@@ -132,4 +143,45 @@ header {
   font-style: italic;
   text-shadow: 0 0 3px #fff;
   text-transform: uppercase;
+}
+
+
+
+/* Bootstrap Overrides */
+.btn-primary {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-primary-font);
+}
+.btn-primary:hover {
+  border-color: var(--color-primary-light);
+  background: var(--color-primary-light);
+  color: var(--color-primary-font);
+}
+.btn-primary.focus,
+.btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem var(--color-primary-alpha);
+}
+.btn-primary.focus.active,
+.btn-primary:focus:active {
+    box-shadow: 0 0 0 0.2rem var(--color-primary-alpha) !important;
+}
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show>.btn-primary.dropdown-toggle {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-primary-font);
+}
+
+.bootstrap-select.btn-group .dropdown-menu>li>a:hover:not(:focus) {
+  background: var(--color-primary);
+  color: var(--color-primary-font);
+}
+
+
+@media only screen and (min-width: 768px) {
+  #panel-container .panel {
+    margin: 6px 3px 0px;
+  }
 }

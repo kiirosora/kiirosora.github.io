@@ -11,7 +11,7 @@ $(function() {
   var $resultsCopy = $('#result-copy');
   var $resultsClipboard = $('#result-clipboard');
   var settings = {};
-  settings.roundMinutes = 15;
+  settings.roundMinutes = 5;
   var tickets = {};
   
   
@@ -35,19 +35,26 @@ $(function() {
   })
   .on('drop', getFiles);
   
+  $('#settings-form').on('submit', function(e) {
+    e.preventDefault();
+    calculate();
+  });
+  
+  $('#settings-button').on('click', function(e) {
+    e.preventDefault();
+    $('#settings').slideToggle();
+  });
+  
   $resultsClipboard.on('click', function(e) {
     e.preventDefault();
     
-    var range = document.createRange();
-    
-    range.selectNode($resultsCopy[0]);
-    window.getSelection().removeAllRanges();
-    window.getSelection().addRange(range);
+    selectAllText($resultsCopy[0]);
     document.execCommand("copy");
     
     $resultsClipboard.tooltip('enable').tooltip('show');
     setTimeout(function() {
-      $resultsClipboard.tooltip('hide').tooltip('disable');
+      $resultsClipboard.tooltip('hide')
+      $resultsClipboard.tooltip('disable');
     }, 1500);
   });
   
@@ -80,35 +87,53 @@ $(function() {
         }
         
         if (++ctr < droppedFiles.length) reader.readAsText(droppedFiles[ctr]);
-        else {
-          $resultsTime.html(getTotalHours() + ' hour(s)');
-          $resultsNumber.html(getTotalTickets());
-          createDomResultCopy();
-        }
+        else calculate();
       }
       
       if (droppedFiles.length) {
         tickets = {};
         
         reader.readAsText(droppedFiles[0]);
-
-        if (!$panelContainer.is(':visible')) $dropzone.addClass('hover-fixed');
         
         $rawDataContainerTbody.empty();
-        $dropzone.fadeOut();
-        $panelContainer.fadeIn();
       }
     }
   }
   
-  function convertToHours(minutes) {
-    var hours = minutes / 60;
-    hours = Math.ceil(hours / (settings.roundMinutes / 60)) * (settings.roundMinutes / 60);
-    
-    return hours;
+  function calculate() {
+    if (!$.isEmptyObject(tickets)) {
+      // Update settings for calculation
+      settings.roundMinutes = parseInt($('#settings-roundminutes').val());
+      
+      $resultsTime.html(getTotalHours() + ' hour(s)');
+      $resultsNumber.html(getTotalTickets());
+
+      createDomResultCopy();
+
+      $dropzone.fadeOut({
+        complete: function() {
+          $(this).addClass('hover-fixed');
+        }
+      });
+
+      $panelContainer.fadeIn();
+
+      selectAllText($resultsCopy[0]);
+    }
   }
   
-  function getTotalMinutes() {
+  function convertToHours(minutes) { // Function to convert minutes to hours rounded up by the roundMinutes setting
+    var
+    hours = minutes / 60,
+    totalHours = 0;
+    
+    totalHours = Math.ceil(hours / (settings.roundMinutes / 60)) * (settings.roundMinutes / 60);
+    
+    return round(totalHours, 2); // Round to 2 decimal points
+    // return totalHours;
+  }
+  
+  function getTotalMinutes() { // Function to get the grand total minutes from all the tickets
     var total = 0;
     
     if (!$.isEmptyObject(tickets)) {
@@ -120,7 +145,7 @@ $(function() {
     return total;
   }
   
-  function getTotalHours() {
+  function getTotalHours() { // Function to get the grand total hours from all the tickets
     var total = 0;
     
     if (!$.isEmptyObject(tickets)) {
@@ -132,7 +157,7 @@ $(function() {
     return total;
   }
   
-  function getTotalTickets() {
+  function getTotalTickets() { // Function to get the grand total number of tickets
     var total = 0;
     
     if (!$.isEmptyObject(tickets)) {
@@ -159,11 +184,25 @@ $(function() {
       for (id in tickets) {
         var ticket = tickets[id];
         
-        $resultsCopy.append(ticket.id + " - " + convertToHours(ticket.getTotalMinutes()) + "<br>");
+        $resultsCopy.append(ticket.id + " (" + ticket.getTotalMinutes() + " minutes) - " + convertToHours(ticket.getTotalMinutes()) + "<br>");
       }
     }
   }
 
+  /* Helper Functions */
+  
+  function selectAllText(element) {
+    var range = document.createRange();
+    
+    range.selectNode(element);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+  }
+
+  function round(value, precision) {
+    var multiplier = Math.pow(10, precision || 0);
+    return Math.round(value * multiplier) / multiplier;
+  }
 });
 
 /* Class - TicketLog */
