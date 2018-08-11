@@ -43,19 +43,18 @@ Author: Juan Carlo Mendoza
         <form id="settings-form">
           <div class="form-group row">
             <label for="staticEmail" class="col-sm-auto col-form-label">Minute Rounding:</label>
-            
             <div class="col-sm-4 input-group input-group-sm">
               <div class="input-group-prepend">
                 <span class="input-group-text">Round</span>
               </div>
-              <select class="custom-select">
+              <select id="settings-roundmode" class="custom-select">
                 <option value="up" selected>Up</option>
                 <option value="down">Down</option>
               </select>
               <div class="input-group-prepend input-group-append">
                 <span class="input-group-text">to the nearest</span>
               </div>
-              <input id="settings-roundminutes" type="text" class="form-control" value="5">
+              <input id="settings-roundminutes" type="text" class="form-control" pattern="[0-9]+">
               <div class="input-group-prepend input-group-append">
                 <span class="input-group-text">minute(s)</span>
               </div>
@@ -116,7 +115,7 @@ Author: Juan Carlo Mendoza
               <div id="result-copy" class="p-1 border"></div>
             </div>
             
-            <button id="result-clipboard" class="btn"data-toggle="tooltip" data-placement="top" title="Copied to clipboard">
+            <button id="result-clipboard" class="btn btn-primary"data-toggle="tooltip" data-placement="top" title="Copied to clipboard">
               Copy
             </button>
           </div>

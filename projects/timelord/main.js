@@ -1,7 +1,7 @@
-console.log('test');
-
 $(function() {
   console.log('jQuery');
+  var $settingsPanel = $('#settings');
+  var $settingsButton = $('#settings-button');
   var $content = $('#content');
   var $dropzone = $('#dropzone');
   var $panelContainer = $('#panel-container');
@@ -10,10 +10,10 @@ $(function() {
   var $resultsNumber = $('#result-number');
   var $resultsCopy = $('#result-copy');
   var $resultsClipboard = $('#result-clipboard');
-  var settings = {};
-  settings.roundMinutes = 5;
+  
   var tickets = {};
   
+  var settings = {};
   
   /* Jquery Events */
   
@@ -40,9 +40,14 @@ $(function() {
     calculate();
   });
   
-  $('#settings-button').on('click', function(e) {
+  $settingsButton.on('click', function(e) {
     e.preventDefault();
-    $('#settings').slideToggle();
+    
+    $(this).addClass('active');
+    
+    $settingsPanel.stop().slideToggle(function() {
+      if ($(this).is(':not(:visible)')) $settingsButton.removeClass('active');
+    });
   });
   
   $resultsClipboard.on('click', function(e) {
@@ -58,9 +63,14 @@ $(function() {
     }, 1500);
   });
   
-  
+  init();
   
   /* Core Functions */
+  
+  function init() {
+    console.log('init()');
+    setSettings();
+  }
   
   function getFiles(e) {
     if (isAdvancedUpload) {
@@ -104,8 +114,9 @@ $(function() {
     if (!$.isEmptyObject(tickets)) {
       // Update settings for calculation
       settings.roundMinutes = parseInt($('#settings-roundminutes').val());
+      settings.roundMode = $('#settings-roundmode').val();
       
-      $resultsTime.html(getTotalHours() + ' hour(s)');
+      $resultsTime.html(round(getTotalHours(), 2) + ' hour(s)');
       $resultsNumber.html(getTotalTickets());
 
       createDomResultCopy();
@@ -119,18 +130,30 @@ $(function() {
       $panelContainer.fadeIn();
 
       selectAllText($resultsCopy[0]);
+      
+      saveSettings();
     }
   }
   
   function convertToHours(minutes) { // Function to convert minutes to hours rounded up by the roundMinutes setting
     var
     hours = minutes / 60,
+    percentage = settings.roundMinutes / 60,
     totalHours = 0;
     
-    totalHours = Math.ceil(hours / (settings.roundMinutes / 60)) * (settings.roundMinutes / 60);
+    switch(settings.roundMode) {
+      case "Up": case "up":
+        totalHours = Math.ceil(hours / percentage) * percentage;
+        break;
+      case "Down": case "down":
+        totalHours = Math.floor(hours / percentage) * percentage;
+        break;
+      default:
+        totalHours = Math.ceil(hours / percentage) * percentage;
+        break;
+    }
     
     return round(totalHours, 2); // Round to 2 decimal points
-    // return totalHours;
   }
   
   function getTotalMinutes() { // Function to get the grand total minutes from all the tickets
@@ -167,7 +190,26 @@ $(function() {
     return total;
   }
   
-  function createDomRawData(ticketLog) {
+  function saveSettings() {
+    if (typeof Storage !== "undefined") {
+      localStorage.setItem('settings', JSON.stringify(settings));
+      console.log('Settings saved...');
+    }
+  }
+  
+  function setSettings() {
+    if (typeof Storage !== "undefined" && localStorage.getItem("settings") !== null) {
+      settings = JSON.parse(localStorage.getItem('settings'));
+    } else {
+      settings.roundMinutes = 5;
+      settings.roundMode = "Up";
+    }
+    
+    $('#settings-roundminutes').val(settings.roundMinutes);
+    $('#settings-roundmode').val(settings.roundMode);
+  }
+  
+  function createDomRawData(ticketLog) { // Display the raw file contents (certain columns only)
     var $row = $('<tr>');
     
     $row.append('<td>' + ticketLog.date + '</td>');
@@ -177,7 +219,7 @@ $(function() {
     $row.appendTo($rawDataContainerTbody);
   }
   
-  function createDomResultCopy() {
+  function createDomResultCopy() { // Display the QB copy data
     
     if (!$.isEmptyObject(tickets)) {
       $resultsCopy.empty();
@@ -191,7 +233,7 @@ $(function() {
 
   /* Helper Functions */
   
-  function selectAllText(element) {
+  function selectAllText(element) { // Select all text within the element
     var range = document.createRange();
     
     range.selectNode(element);
@@ -199,11 +241,12 @@ $(function() {
     window.getSelection().addRange(range);
   }
 
-  function round(value, precision) {
+  function round(value, precision) { // Round decimals
     var multiplier = Math.pow(10, precision || 0);
     return Math.round(value * multiplier) / multiplier;
   }
 });
+
 
 /* Class - TicketLog */
 class TicketLog {

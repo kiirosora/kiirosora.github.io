@@ -48,18 +48,21 @@ noscript {
   color: var(--color-primary-font);
 }
 
+*:focus {
+  box-shadow: 0 0 0 0.2rem var(--color-primary-alpha) !important;
+}
+
 th { font-weight: bold; }
 
 .wrapper {
   padding: 20px 30px;
 }
 
+
 header {
   background: var(--color-primary);
   color: var(--color-primary-font);
 }
-
-
 
 #title {
   font-size: 1rem;
@@ -69,6 +72,7 @@ header {
   background: var(--color-light-gray);
   color: var(--color-black);
 }
+
 
 #content {
   min-height: calc(100vh - 60px);
