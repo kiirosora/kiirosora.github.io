@@ -44,12 +44,12 @@ $(function() {
     e.preventDefault();
     
     $(this).addClass('active');
-    settings.openSettings = true;
+    settings.settingsOpenState = true;
     
     $settingsPanel.stop().slideToggle(function() {
       if ($(this).is(':not(:visible)')) {
         $settingsButton.removeClass('active');
-        settings.openSettings = false;
+        settings.settingsOpenState = false;
       }
     
       saveSettings();
@@ -198,6 +198,7 @@ $(function() {
     
     settings.roundMinutes = parseInt($('#settings-roundminutes').val());
     settings.roundMode = $('#settings-roundmode').val();
+    settings.generateRawMinutes = $('#settings-generate-rawminutes').prop('checked');
     
     if (typeof Storage !== "undefined") {
       localStorage.setItem('settings', JSON.stringify(settings));
@@ -212,7 +213,8 @@ $(function() {
     settings = {
       roundMinutes: 5,
       roundMode: "up",
-      openSettings: true
+      generateRawMinutes: true,
+      settingsOpenState: true
     }
     
     if (typeof Storage !== "undefined" && localStorage.getItem("settings") !== null) {
@@ -224,7 +226,8 @@ $(function() {
     
     $('#settings-roundminutes').val(settings.roundMinutes);
     $('#settings-roundmode').val(settings.roundMode);
-    if (settings.openSettings) {
+    $('#settings-generate-rawminutes').prop('checked', settings.generateRawMinutes)
+    if (settings.settingsOpenState) {
       $settingsPanel.show();
       $settingsButton.addClass('active');
     }
@@ -243,12 +246,19 @@ $(function() {
   function createDomResultCopy() { // Display the QB copy data
     
     if (!$.isEmptyObject(tickets)) {
+      var text = "";
+      
       $resultsCopy.empty();
+      
       for (id in tickets) {
         var ticket = tickets[id];
         
-        $resultsCopy.append(ticket.id + " (" + ticket.getTotalMinutes() + " minutes) - " + convertToHours(ticket.getTotalMinutes()) + "<br>");
+        text += ticket.id;
+        text += settings.generateRawMinutes ? " (" + ticket.getTotalMinutes() + " minutes)" : "";
+        text += " - " + convertToHours(ticket.getTotalMinutes()) + "<br>";
       }
+      
+      $resultsCopy.append(text);
     }
   }
 

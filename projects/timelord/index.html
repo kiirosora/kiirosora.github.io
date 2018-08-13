@@ -17,17 +17,18 @@ Author: Juan Carlo Mendoza
   <meta name="msapplication-TileColor" content="#ffc40d">
   <meta name="theme-color" content="#ffffff">
 	
-	<link rel="stylesheet" href="reset.css"/>
+	<link rel="stylesheet" href="css/reset.css"/>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="style.css"/>
+	<link rel="stylesheet" href="css/style.css"/>
+	<link rel="stylesheet" href="css/build.css"/>
 </head>
 
 <body>
   <header class="container-fluid">
 
     <div class="wrapper row">
-      <div class="col-md p-0">
+      <div class="col-md p-0 d-flex align-items-center">
         <span id="title">Time<b>Lord</b>
       </div>
       <div class="col-md p-0 text-right">
@@ -40,29 +41,43 @@ Author: Juan Carlo Mendoza
     <div id="settings" class="wrapper row" style="display: none;">
       <div class="col-md p-0">
         <h4 class="h4 title">Settings</h4>
+        
         <form id="settings-form">
-          <div class="form-group row">
-            <label for="staticEmail" class="col-sm-auto col-form-label">Minute Rounding:</label>
-            <div class="col-sm-4 input-group input-group-sm">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Round</span>
-              </div>
-              <select id="settings-roundmode" class="custom-select">
-                <option value="up" selected>Up</option>
-                <option value="down">Down</option>
-              </select>
-              <div class="input-group-prepend input-group-append">
-                <span class="input-group-text">to the nearest</span>
-              </div>
-              <input id="settings-roundminutes" type="text" class="form-control" pattern="[0-9]+">
-              <div class="input-group-prepend input-group-append">
-                <span class="input-group-text">minute(s)</span>
+          <div class="form-row">
+            <div class="form-group col-md-4 col-sm-12">
+              <label for="staticEmail" class="col-form-label">Minute Rounding:</label>
+              <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Round</span>
+                </div>
+                <select id="settings-roundmode" class="custom-select">
+                  <option value="up" selected>Up</option>
+                  <option value="down">Down</option>
+                </select>
+                <div class="input-group-prepend input-group-append">
+                  <span class="input-group-text">to the nearest</span>
+                </div>
+                <input id="settings-roundminutes" type="text" class="form-control" pattern="[0-9]+">
+                <div class="input-group-append">
+                  <span class="input-group-text">minute(s)</span>
+                </div>
               </div>
             </div>
           </div>
           
-          <div class="form-group row justify-content-md-center">
-            <button type="submit" class="btn btn-primary">Apply</button>
+          <div class="form-row">
+            <div class="form-group col-md-4 col-sm-12">
+              <div class="checkbox checkbox-primary">
+                <input id="settings-generate-rawminutes" type="checkbox" checked>
+                <label for="settings-generate-rawminutes"> Add raw minutes to generated text</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group col-md-12 text-center">
+              <button type="submit" class="btn btn-primary">Apply</button>
+            </div>
           </div>
         </form>
       </div>
@@ -109,9 +124,12 @@ Author: Juan Carlo Mendoza
               <dt class="col-sm-5">Number of Tickets:</dt>
               <dd id="result-number"class="col-sm-7"></dd>
             </dl>
+          </div>
+
+          <div class="panel">
+            <h4 class="h4 title">Copy</h4>
             
             <div class="form-group">
-              <h5 class="h5">Copy:</h5>
               <div id="result-copy" class="p-1 border"></div>
             </div>
             

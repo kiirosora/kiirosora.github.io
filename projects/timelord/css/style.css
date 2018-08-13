@@ -6,6 +6,9 @@
 /* Serif Fonts */
 @import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,700); /* Roboto Slab [normal:400, bold:700] */
 
+/* Mono Fonts */
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,700');  /* Roboto Mono [normal:400, bold:700] */
+
 :root {
   --color-primary: #4CAF50;
   --color-primary-alpha: #4CAF5088;
@@ -16,7 +19,7 @@
   --color-lighter-gray: #eee;
   --color-dark-gray: #bbb;
   --color-darker-gray: #aaa;
-  --color-black: #333;
+  --color-black: #495057;
   --color-black-alpha: #00000088;
 }
 
@@ -59,6 +62,8 @@ th { font-weight: bold; }
 }
 
 
+/* Header */
+
 header {
   background: var(--color-primary);
   color: var(--color-primary-font);
@@ -68,11 +73,24 @@ header {
   font-size: 1rem;
 }
 
+
+/* Settings */
 #settings {
   background: var(--color-light-gray);
   color: var(--color-black);
 }
 
+#settings .title {
+  font-family: 'Roboto Slab', 'Open Sans', Arial;
+}
+
+#settings .input-group-text {
+  background: var(--color-primary);
+  color: var(--color-primary-font);
+}
+
+
+/* Content */
 
 #content {
   min-height: calc(100vh - 60px);
@@ -108,6 +126,7 @@ header {
 
 #content .title {
   color: var(--color-primary);
+  font-family: 'Roboto Slab', 'Open Sans', Arial;
 }
 
 #panel-container .panel {
@@ -126,7 +145,7 @@ header {
 }
 
 #result-copy {
-  
+  font-family: 'Roboto Mono', 'Open Sans', Arial;
 }
 
 #result-clipboard {
@@ -173,6 +192,32 @@ header {
 .btn-primary:not(:disabled):not(.disabled).active,
 .btn-primary:not(:disabled):not(.disabled):active,
 .show>.btn-primary.dropdown-toggle {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-primary-font);
+}
+
+
+.btn-outline-primary {
+  border-color: var(--color-primary);
+  color: var(--color-black);
+}
+.btn-outline-primary:hover {
+  border-color: var(--color-primary-light);
+  background: var(--color-primary-light);
+  color: var(--color-primary-font);
+}
+.btn-outline-primary.focus,
+.btn-outline-primary:focus {
+    box-shadow: 0 0 0 0.2rem var(--color-primary-alpha);
+}
+.btn-outline-primary.focus.active,
+.btn-outline-primary:focus:active {
+    box-shadow: 0 0 0 0.2rem var(--color-primary-alpha) !important;
+}
+.btn-outline-primary:not(:disabled):not(.disabled).active,
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.show>.btn-outline-primary.dropdown-toggle {
   border-color: var(--color-primary);
   background: var(--color-primary);
   color: var(--color-primary-font);
