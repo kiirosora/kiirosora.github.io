@@ -57,7 +57,7 @@ Author: Juan Carlo Mendoza
                 <div class="input-group-prepend input-group-append">
                   <span class="input-group-text">to the nearest</span>
                 </div>
-                <input id="settings-roundminutes" type="text" class="form-control" pattern="[0-9]+">
+                <input id="settings-roundminutes" type="text" class="form-control" pattern="[0-9]+" maxlength="2" autocomplete="off">
                 <div class="input-group-append">
                   <span class="input-group-text">minute(s)</span>
                 </div>
@@ -69,7 +69,16 @@ Author: Juan Carlo Mendoza
             <div class="form-group col-md-4 col-sm-12">
               <div class="checkbox checkbox-primary">
                 <input id="settings-generate-rawminutes" type="checkbox" checked>
-                <label for="settings-generate-rawminutes"> Add raw minutes to generated text</label>
+                <label for="settings-generate-rawminutes">Add raw minutes to generated text</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group col-md-4 col-sm-12">
+              <div class="checkbox checkbox-primary">
+                <input id="settings-generate-total" type="checkbox">
+                <label for="settings-generate-total">Include total in generated text</label>
               </div>
             </div>
           </div>
@@ -120,7 +129,7 @@ Author: Juan Carlo Mendoza
             
             <dl class="row">
               <dt class="col-sm-5">Time:</dt>
-              <dd id="result-time" class="col-sm-7"></dd>
+              <dd class="col-sm-7"><span id="result-time"></span> hour(s)</dd>
               <dt class="col-sm-5">Number of Tickets:</dt>
               <dd id="result-number"class="col-sm-7"></dd>
             </dl>

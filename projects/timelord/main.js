@@ -35,11 +35,6 @@ $(function() {
   })
   .on('drop', getFiles);
   
-  $('#settings-form').on('submit', function(e) {
-    e.preventDefault();
-    calculate();
-  });
-  
   $settingsButton.on('click', function(e) {
     e.preventDefault();
     
@@ -54,6 +49,15 @@ $(function() {
     
       saveSettings();
     });
+  });
+  
+  $('#settings-form').on('submit', function(e) {
+    e.preventDefault();
+    calculate();
+  });
+  
+  $('#result-time').on('click', function(e) {
+    selectAllText(this);
   });
   
   $resultsClipboard.on('click', function(e) {
@@ -122,7 +126,7 @@ $(function() {
     
     if (!$.isEmptyObject(tickets)) {
       
-      $resultsTime.html(round(getTotalHours(), 2) + ' hour(s)');
+      $resultsTime.html(round(getTotalHours(), 2));
       $resultsNumber.html(getTotalTickets());
 
       createDomResultCopy();
@@ -199,6 +203,7 @@ $(function() {
     settings.roundMinutes = parseInt($('#settings-roundminutes').val());
     settings.roundMode = $('#settings-roundmode').val();
     settings.generateRawMinutes = $('#settings-generate-rawminutes').prop('checked');
+    settings.generateTotal = $('#settings-generate-total').prop('checked');
     
     if (typeof Storage !== "undefined") {
       localStorage.setItem('settings', JSON.stringify(settings));
@@ -214,6 +219,7 @@ $(function() {
       roundMinutes: 5,
       roundMode: "up",
       generateRawMinutes: true,
+      generateTotal: true,
       settingsOpenState: true
     }
     
@@ -223,10 +229,10 @@ $(function() {
     
     $.extend(settings, savedSettings);
     
-    
     $('#settings-roundminutes').val(settings.roundMinutes);
     $('#settings-roundmode').val(settings.roundMode);
-    $('#settings-generate-rawminutes').prop('checked', settings.generateRawMinutes)
+    $('#settings-generate-rawminutes').prop('checked', settings.generateRawMinutes);
+    $('#settings-generate-total').prop('checked', settings.generateTotal);
     if (settings.settingsOpenState) {
       $settingsPanel.show();
       $settingsButton.addClass('active');
@@ -257,6 +263,8 @@ $(function() {
         text += settings.generateRawMinutes ? " (" + ticket.getTotalMinutes() + " minutes)" : "";
         text += " - " + convertToHours(ticket.getTotalMinutes()) + "<br>";
       }
+      
+      text += settings.generateTotal ? "Total Hour(s): " +  $resultsTime.html() : "";
       
       $resultsCopy.append(text);
     }
