@@ -44,9 +44,15 @@ $(function() {
     e.preventDefault();
     
     $(this).addClass('active');
+    settings.openSettings = true;
     
     $settingsPanel.stop().slideToggle(function() {
-      if ($(this).is(':not(:visible)')) $settingsButton.removeClass('active');
+      if ($(this).is(':not(:visible)')) {
+        $settingsButton.removeClass('active');
+        settings.openSettings = false;
+      }
+    
+      saveSettings();
     });
   });
   
@@ -111,10 +117,10 @@ $(function() {
   }
   
   function calculate() {
+    // Update settings for calculation
+    saveSettings();
+    
     if (!$.isEmptyObject(tickets)) {
-      // Update settings for calculation
-      settings.roundMinutes = parseInt($('#settings-roundminutes').val());
-      settings.roundMode = $('#settings-roundmode').val();
       
       $resultsTime.html(round(getTotalHours(), 2) + ' hour(s)');
       $resultsNumber.html(getTotalTickets());
@@ -130,8 +136,6 @@ $(function() {
       $panelContainer.fadeIn();
 
       selectAllText($resultsCopy[0]);
-      
-      saveSettings();
     }
   }
   
@@ -191,6 +195,10 @@ $(function() {
   }
   
   function saveSettings() {
+    
+    settings.roundMinutes = parseInt($('#settings-roundminutes').val());
+    settings.roundMode = $('#settings-roundmode').val();
+    
     if (typeof Storage !== "undefined") {
       localStorage.setItem('settings', JSON.stringify(settings));
       console.log('Settings saved...');
@@ -198,15 +206,28 @@ $(function() {
   }
   
   function setSettings() {
-    if (typeof Storage !== "undefined" && localStorage.getItem("settings") !== null) {
-      settings = JSON.parse(localStorage.getItem('settings'));
-    } else {
-      settings.roundMinutes = 5;
-      settings.roundMode = "Up";
+    var savedSettings = {};
+    
+    // Default Values
+    settings = {
+      roundMinutes: 5,
+      roundMode: "up",
+      openSettings: true
     }
+    
+    if (typeof Storage !== "undefined" && localStorage.getItem("settings") !== null) {
+      savedSettings = JSON.parse(localStorage.getItem('settings'));
+    }
+    
+    $.extend(settings, savedSettings);
+    
     
     $('#settings-roundminutes').val(settings.roundMinutes);
     $('#settings-roundmode').val(settings.roundMode);
+    if (settings.openSettings) {
+      $settingsPanel.show();
+      $settingsButton.addClass('active');
+    }
   }
   
   function createDomRawData(ticketLog) { // Display the raw file contents (certain columns only)
