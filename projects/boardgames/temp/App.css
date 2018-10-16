@@ -1,0 +1,47 @@
+@import url(reset.css);
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300); /* Roboto [normal:400, lite:300] */
+/* @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300); /* Open Sans [normal:400, lite:300] */
+/* @import url(http://fonts.googleapis.com/css?family=Lobster); /* Lobster [normal:400] */
+
+/* Serif Fonts */
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,700); /* Roboto Slab [normal:400, bold:700] */
+
+:root {
+  --color-main: #FF9047;
+  --color-main-font: #fff;
+  --color-mainlight: #408EFF;
+  --color-mainlight-font: #fff;
+  --color-accent: #8CB369;
+  --color-accent-font: #fff;
+  --color-accentlight: #408EFF;
+  --color-accentlight-font: #fff;
+  --color-lightgray: #ddd;
+  --color-lightgray-font: #ccc;
+  --color-darkgray: #444;
+  --color-darkgray-font: #fff;
+  --color-custom-richblack: #07020D;
+}
+
+body {
+	color: #333;
+	font-family: 'Roboto', Arial;
+  font-size: 1em;
+}
+
+noscript {
+	width: 500px;
+	padding: 20px;
+	margin: 30px auto;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	display: block;
+	text-align: center;
+	background: #eee;
+	font-size: 1rem;
+}
+
+.container {
+  width: 100vw;
+  max-width: 980px;
+  margin: 0 auto;
+}
